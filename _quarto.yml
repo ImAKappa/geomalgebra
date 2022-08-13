@@ -13,6 +13,9 @@ format:
     css: styles.css
     toc: true
     toc-depth: 4
+    code-fold: show
+    code-tools: true
+    code-summary: "Code"
 
 website:
   title: "geomalgebra"
