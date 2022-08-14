@@ -28,7 +28,7 @@ conda create -n some2 python=3.10 --file some2-env.txt
 
 Tested on Windows WSL2 for Python 3.10. The minimum supported Python
 version is 3.10, but can be adapted to 3.9 by modifying syntax for type
-hints and some standard library functions
+hints and some standard library functions.
 
 ## Learn Geometric Algebra
 
@@ -37,19 +37,13 @@ following order:
 
 -   [Geometric Algebra Primer
     (2003)](http://www.jaapsuter.com/geometric-algebra.pdf): Very
-    approachable. It’s so great I have included a copy in this
-    repository. Throughout the notebooks I will refer to the relevant
+    approachable. It’s so great that I have included a copy in this
+    repository. Throughout the tutorials I will refer to the relevant
     sections.
 
 -   [Linear and Geometric Algebra (Alan Macdonald,
     2011)](http://www.faculty.luther.edu/~macdonal/laga/). Great intro
     to the subject with lots of practice problems.
-
--   [Guided Tour to Plane-Based Geometric
-    Algebra](https://bivector.net/PGA4CS.html): Exactly what it sounds
-    like. A little confusing for someone like me with no computer
-    graphics background, but it’s the most comprehensive (and
-    up-to-date) summary of PGA I can find.
 
 -   [Geometric Algebra (Thesis by Daniel Fontijne,
     2007)](https://pure.uva.nl/ws/files/4375498/52687_fontijne.pdf):
@@ -71,8 +65,8 @@ it was a bit obscure, but figured why not try to learn it.
 
 The theory was not too bad to get the hang of, but it was much harder
 for me to grok numerical GA. In my head there was a big disconnect
-between symbolic manipulations of GA and they transltaed to a computer
-implementation. I found many neat libraries like
+between symbolic manipulations of GA and corresponding computer
+implementations. I found many neat libraries like
 [Ganja.js](https://github.com/enkimute/ganja.js),
 [Clifford](https://github.com/pygae/clifford), and
 [Klein](https://github.com/jeremyong/klein). They were nice to use, but
@@ -85,7 +79,7 @@ When 3Blue1Brown announced the SoME2, I found the motivation to actually
 start the project. It was a bit tricky to put together a GA
 implementation that was understandable, not only to myself, but to other
 people. Hopefully I succeeded, or at least got a few new people
-interested in GA. Of course, this repo won’t be abandoned after the
-competition ends. My next goal is to explain and implement are very
+interested in GA. Of course, the repository won’t be abandoned after the
+competition ends. My next goal is to explain and implement a very
 interesting flavour of geometric algebra called Plane-Based Geometric
 Algebra. But that’s a project for future me.

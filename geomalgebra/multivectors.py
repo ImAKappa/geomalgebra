@@ -10,7 +10,7 @@ from .basisblades import ga2d, BasisBlade
 # %% ../nbs/03_multivectors.ipynb 8
 @dataclass(frozen=True)
 class Multivector():
-    """A Multivector is a linear combination of basis blades"""
+    """A Multivector is a linear combination of basis blades."""
     # InitVar variable is not set as class field, just sent to post_init method
     basis_blades: InitVar[list[BasisBlade]] = None
     blades: dict[int, BasisBlade] = field(init=False, default_factory=dict)
