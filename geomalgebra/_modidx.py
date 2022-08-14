@@ -33,4 +33,6 @@ d = { 'settings': { 'allowed_cell_metadata_keys': '',
                 'tst_flags': 'notest',
                 'user': 'ImAKappa',
                 'version': '0.0.1'},
-  'syms': {'geomalgebra.core': {'geomalgebra.core.foo': 'https://ImAKappa.github.io/geomalgebra/core.html#foo'}}}
+  'syms': { 'geomalgebra.basisblades': {'geomalgebra.basisblades.BasisBlade': 'https://ImAKappa.github.io/geomalgebra/basisblades.html#basisblade'},
+            'geomalgebra.core': {'geomalgebra.core.foo': 'https://ImAKappa.github.io/geomalgebra/core.html#foo'},
+            'geomalgebra.ga': {'geomalgebra.ga.foo': 'https://ImAKappa.github.io/geomalgebra/ga.html#foo'}}}
