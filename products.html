@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Summary: The geometric product is the sum of the inner and outer product. It is the foundation of Geometric Algebra.">
+
+<title>geomalgebra - Products</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="geomalgebra - Products">
+<meta property="og:description" content="Summary: The geometric product is the sum of the inner and outer product. It is the foundation of Geometric Algebra.">
+<meta property="og:site-name" content="geomalgebra">
+<meta name="twitter:title" content="geomalgebra - Products">
+<meta name="twitter:description" content="Summary: The geometric product is the sum of the inner and outer product. It is the foundation of Geometric Algebra.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">geomalgebra</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ImAKappa/geomalgebra/"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Products</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">geomalgebra</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ga.html" class="sidebar-item-text sidebar-link">Geometric Algebra</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./subspaces.html" class="sidebar-item-text sidebar-link">Subspaces</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basisblades.html" class="sidebar-item-text sidebar-link">Basis Blades</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multivectors.html" class="sidebar-item-text sidebar-link">Multivectors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./products.html" class="sidebar-item-text sidebar-link active">Products</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-geometric-product" id="toc-the-geometric-product" class="nav-link active" data-scroll-target="#the-geometric-product">The Geometric Product</a></li>
+  <li><a href="#implementation-for-basisblades" id="toc-implementation-for-basisblades" class="nav-link" data-scroll-target="#implementation-for-basisblades">Implementation for BasisBlades</a>
+  <ul class="collapse">
+  <li><a href="#canonical_sign" id="toc-canonical_sign" class="nav-link" data-scroll-target="#canonical_sign">canonical_sign</a></li>
+  <li><a href="#basis_blade_gp" id="toc-basis_blade_gp" class="nav-link" data-scroll-target="#basis_blade_gp">basis_blade_gp</a></li>
+  </ul></li>
+  <li><a href="#implementation-for-multivectors" id="toc-implementation-for-multivectors" class="nav-link" data-scroll-target="#implementation-for-multivectors">Implementation for Multivectors</a>
+  <ul class="collapse">
+  <li><a href="#gp" id="toc-gp" class="nav-link" data-scroll-target="#gp">gp</a></li>
+  </ul></li>
+  <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings">Readings</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s Next?</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ImAKappa/geomalgebra/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Products</h1>
+</div>
+
+<div>
+  <div class="description">
+    <strong>Summary</strong>: The geometric product is the sum of the inner and outer product. It is the foundation of Geometric Algebra.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> geomalgebra.basisblades <span class="im">import</span> ga2d, BasisBlade</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> geomalgebra.multivectors <span class="im">import</span> Multivector, add</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For convenience, we unpack the basis blades into the global scope</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>scalar, e1, e2, e12 <span class="op">=</span> ga2d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="the-geometric-product" class="level2">
+<h2 class="anchored" data-anchor-id="the-geometric-product">The Geometric Product</h2>
+<p>We have seen the dot product and the wedge product, but the most important product in GA is the <strong>geometric product</strong>.</p>
+<p>For arbitrary vectors (1-blades), <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, the geometric product is:</p>
+<p><span class="math display">\[
+ab = a \cdot b + a \wedge b
+\]</span></p>
+<p>Although we saw what the outer product does geometrically, we glossed over it’s properties. The outer product is associative and distributitve, and also <span class="math inline">\(\vec{a} \wedge \vec{a} = 0\)</span> (extending <span class="math inline">\(\vec{a}\)</span> along itself produces no area!) and <span class="math inline">\(\vec{a} \wedge \vec{b} = - \vec{a} \wedge \vec{b}\)</span> (orientation matters, like we saw earlier).</p>
+<p>The dot products works like it does in linear algebra. Perpendicular vectors have a dot product of <span class="math inline">\(0\)</span>, and parallel vectors have a dot product of <span class="math inline">\(1\)</span>.</p>
+<p>To better understand the geometric product, try the following questions on your own. If you get stuck, you can reveal a walkthrough of the answer.</p>
+<ol type="1">
+<li>What is <span class="math inline">\(e_1 e_2\)</span>?</li>
+</ol>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\begin{aligned}
+e_1 e_2 &amp;= e_1 \cdot e_2 + e_1 \wedge e_2 \newline
+&amp;= 0 + e_1 \wedge e_2 &amp; \text{Dot product of perpendicular vectors is zero} \newline
+&amp;= e_1 \wedge e_2  = e_{12} \newline
+\end{aligned}
+\]</span></p>
+<p>The geometric product of two (non-parallel) vectors is a bivector.</p>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Find <span class="math inline">\(e_1 e_1\)</span> (i.e.&nbsp;<span class="math inline">\(e_1^2\)</span>):</li>
+</ol>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\begin{aligned}
+e_1 e_1 &amp;= e_1 \cdot e_1 + e_1 \wedge e_1 \newline
+&amp;= 1 + e_1 \wedge e_1 &amp; \text{Dot product of paralell vectors is one} \newline
+&amp;= 1 + 0 &amp; \text{Outer/Wedge product of parallel vectors is zero} \newline
+&amp;= 1
+\end{aligned}
+\]</span></p>
+<p>Interesting. Here we have an entity, <span class="math inline">\(e_1\)</span> that is distinct from the real number <span class="math inline">\(1\)</span>, but that squares to 1.</p>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Last example, calculate <span class="math inline">\(e_{12}e_{12}\)</span>:</li>
+</ol>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\begin{aligned}
+e_{12} e_{12} &amp;= e_1 e_2 e_1 e_2 \newline
+&amp;= - e_2 e_1 e_1 e_2 &amp; e_{12} = e_1\wedge e_2 = -e_2 \wedge e_1 = -e_{21} \newline
+&amp;= - e_2 e_1^2 e_2 &amp; e_i^2 = 1 \newline
+&amp;= - e_2 e_2 = - e_2^2 \newline
+&amp;= -1
+\end{aligned}
+\]</span></p>
+<p>Also very interesting. We have an entity that squares to -1, like an imaginary number.</p>
+<blockquote class="blockquote">
+<p>See <a href="http://geometry.mrao.cam.ac.uk/wp-content/uploads/2015/02/ImagNumbersArentReal.pdf">Imaginary Numbers Are Not Real</a> for more on this result, space-time physics, and some history of Geometric Algebra.</p>
+</blockquote>
+</div>
+</div>
+</div>
+</section>
+<section id="implementation-for-basisblades" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="implementation-for-basisblades">Implementation for BasisBlades</h2>
+<p>Based on the calculations above, <span class="math inline">\(e_i e_i\)</span> cancels out the basis <span class="math inline">\(e_i\)</span>, and <span class="math inline">\(e_i e_j\)</span> (<span class="math inline">\(i \neq j\)</span>) retains both bases.</p>
+<p>This is pretty similar to the XOR bitwise function. If you have 1 XOR 1, it cancels to 0. Also two different bits, like 1 XOR 0, will become 1.</p>
+<blockquote class="blockquote">
+<p><code>^</code> is the XOR operator in Python.</p>
+</blockquote>
+<p>For example, <span class="math inline">\(e_1 e_{12}\)</span> as an XOR looks like:</p>
+<p><span class="math display">\[
+\begin{array}{ccc}
+   e_1 &amp; 0 &amp; 1 \\
+   e_{12} &amp; 1 &amp; 1 \\ \hline
+   e_2 &amp; 1 &amp; 0
+\end{array}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correct</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(BasisBlade.bit_bases2d.get(e1 <span class="op">^</span> e2))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Correct</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(BasisBlade.bit_bases2d.get(e1 <span class="op">^</span> e1))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Incorrect! Wrong sign! Should be -s (i.e. -1.0 scalar)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(BasisBlade.bit_bases2d.get(e12 <span class="op">^</span> e12))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>e12
+s
+s</code></pre>
+</div>
+</div>
+<p>The XOR is close, but isn’t quite right. When manipulating the vectors algebraically we made sure to change the sign when swapping the order of operands (<span class="math inline">\(e_1 e_2 = -e_2 e_1\)</span>).</p>
+<p>But how do we encode the sign change with the bit-representation of basis blades? First let’s assume canonical order is postive (canonical order is when the subscript of the bases are in increasing order).</p>
+<p>Then if we are presented with bases out of canonical order, say <span class="math inline">\(e_2 e_1\)</span>, we can determine that the first basis is canonically greater than the second by counting how many <span class="math inline">\(1\)</span> s in the first basis are in a greater position than <span class="math inline">\(1\)</span> s in the second basis.</p>
+<p>For example,</p>
+<p><span class="math display">\[\begin{array}{ccc}
+e_2 &amp; 1 &amp; 0 \\
+e_1 &amp; 0 &amp; 1 \\
+\end{array}
+\]</span></p>
+<p>The first number, <span class="math inline">\(e_2\)</span>, has a <span class="math inline">\(1\)</span> in a greater position than the second number, <span class="math inline">\(e_1\)</span>. Therefore, flipping the order of these bases once will put the numbers in canonical order. Every flip changes the sign, which means the geometric product of these bases is negative.</p>
+<p>Another example,</p>
+<p><span class="math display">\[
+\begin{array}{ccc}
+e_2 &amp; 1 &amp; 0 \\
+e_{12} &amp; 1 &amp; 1 \\
+\end{array}
+\]</span></p>
+<p>Again, there is a <span class="math inline">\(1\)</span> in the first number, <span class="math inline">\(e_2\)</span>, ahead of a <span class="math inline">\(1\)</span> in the second number, so the answer is negative.</p>
+<p>A computer can’t visually inspect binary numbers like we can, but we can simulate the same logic by sliding bits in the the first number towards the right, and using the bitwise <code>AND</code> operator and a <code>bit_count</code> function to count how many <span class="math inline">\(1\)</span> s are ahead of the <span class="math inline">\(1\)</span> s in the second number after each slide. Effectively, we count how many bases in the first number are greater than the bases in the second number, thereby informing us of how many sign changes to make.</p>
+<div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="aside">Starting from a positive number, an odd number of sign changes yields a negative number and an even number of sign changes yields a positive.</span></div></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> canonical_sign(basis_1: <span class="bu">int</span>, basis_2: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Count the number of basis blade swaps required to get 'a' and 'b' in canonical order</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Canonical order means increasing order is positive, i.e: e1^e2 is positive, e2^e1 is negative</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    basis_1 <span class="op">=</span> basis_1 <span class="op">&gt;&gt;</span> <span class="dv">1</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    num_swaps <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> basis_1:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Count how many bases in basis_1 are canonically greater than those in basis_2</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        num_swaps <span class="op">+=</span> <span class="bu">int</span>.bit_count(basis_1 <span class="op">&amp;</span> basis_2)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        basis_1 <span class="op">=</span> basis_1 <span class="op">&gt;&gt;</span> <span class="dv">1</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    num_swaps_is_odd <span class="op">=</span> (num_swaps <span class="op">&amp;</span> <span class="dv">1</span>) <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">1.</span> <span class="cf">if</span> (num_swaps_is_odd) <span class="cf">else</span> <span class="op">-</span><span class="fl">1.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+<section id="canonical_sign" class="level4">
+<h4 class="anchored" data-anchor-id="canonical_sign">canonical_sign</h4>
+<blockquote class="blockquote">
+<pre><code> canonical_sign (basis_1:int, basis_2:int)</code></pre>
+</blockquote>
+<p>Count the number of basis blade swaps required to get ‘a’ and ‘b’ in canonical order Canonical order means increasing order is positive, i.e: e1^e2 is positive, e2^e1 is negative</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> canonical_sign(ga2d.e1, ga2d.e2) <span class="op">==</span> <span class="fl">1.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> canonical_sign(ga2d.e2, ga2d.e1) <span class="op">==</span> <span class="op">-</span><span class="fl">1.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Scalar multiplication works like usual, so the geometric product for basis blades is:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> basis_blade_gp(b1: BasisBlade, b2: BasisBlade):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Geometric Product for basis blades"""</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    sign <span class="op">=</span> canonical_sign(b1.basis, b2.basis)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> BasisBlade(sign <span class="op">*</span> b1.weight <span class="op">*</span> b2.weight, b1.basis <span class="op">^</span> b2.basis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+<section id="basis_blade_gp" class="level4">
+<h4 class="anchored" data-anchor-id="basis_blade_gp">basis_blade_gp</h4>
+<blockquote class="blockquote">
+<pre><code> basis_blade_gp (b1:geomalgebra.basisblades.BasisBlade,
+                 b2:geomalgebra.basisblades.BasisBlade)</code></pre>
+</blockquote>
+<p>Geometric Product for basis blades</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basis Bivector squares to -1 under the geometric product - just like imaginary numbers!</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(basis_blade_gp(BasisBlade(<span class="fl">1.</span>, e12), BasisBlade(<span class="fl">1.</span>, e12)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-1.0s</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="implementation-for-multivectors" class="level2">
+<h2 class="anchored" data-anchor-id="implementation-for-multivectors">Implementation for Multivectors</h2>
+<p>The geometric product for multivectors is:</p>
+<ol type="1">
+<li>associative: <span class="math inline">\(A(BC) = (AB)C\)</span></li>
+<li>commutative under scalar multiplication: <span class="math inline">\(\lambda A = A \lambda\)</span> (where <span class="math inline">\(\lambda\)</span> is a scalar)</li>
+<li>distributive: <span class="math inline">\(A(B + C) = AB + AC\)</span></li>
+</ol>
+<p>where <span class="math inline">\(A, B, C\)</span> are multivectors.</p>
+<p>In terms of implementation, this just means we need to multiply all of the terms of one multivector by all of the terms of the other multivectors. It’s really just the same as Polynomial multiplication.</p>
+<blockquote class="blockquote">
+<p>For simplicity, we won’t try to implement any fancy multiplication algorithm that runs better than <span class="math inline">\(O(n^2)\)</span>.</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gp(m1: Multivector<span class="op">|</span>BasisBlade, m2: Multivector<span class="op">|</span>BasisBlade) <span class="op">-&gt;</span> Multivector:</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Geometric product for Multivectors and Basis Blades"""</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    basis_blades: <span class="bu">list</span>[BasisBlade] <span class="op">=</span> <span class="bu">list</span>()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(m1, BasisBlade): m1 <span class="op">=</span> Multivector([m1])</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(m2, BasisBlade): m2 <span class="op">=</span> Multivector([m2])</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> basis_1 <span class="kw">in</span> m1.blades.values():</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> basis_2 <span class="kw">in</span> m2.blades.values():</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>            basis_blades <span class="op">=</span> [<span class="op">*</span>basis_blades, basis_blade_gp(basis_1, basis_2)]</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Multivector(basis_blades)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+<section id="gp" class="level4">
+<h4 class="anchored" data-anchor-id="gp">gp</h4>
+<blockquote class="blockquote">
+<pre><code> gp (m1:geomalgebra.multivectors.Multivector|geomalgebra.basisblades.Basis
+     Blade, m2:geomalgebra.multivectors.Multivector|geomalgebra.basisblade
+     s.BasisBlade)</code></pre>
+</blockquote>
+<p>Geometric product for Multivectors and Basis Blades</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="op">=</span> Multivector([BasisBlade(<span class="fl">2.</span>, scalar), BasisBlade(<span class="fl">3.</span>, e1)])</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="op">=</span> Multivector([BasisBlade(<span class="fl">4.</span>, scalar), BasisBlade(<span class="fl">2.</span>, e1)])</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'(</span><span class="sc">{</span>m1<span class="sc">}</span><span class="ss">)(</span><span class="sc">{</span>m2<span class="sc">}</span><span class="ss">) = </span><span class="sc">{</span>gp(m1, m2)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(2.0s + 3.0e1)(4.0s + 2.0e1) = 14.0s + 16.0e1</code></pre>
+</div>
+</div>
+<p>We can verify this result by hand:</p>
+<p><span class="math display">\[\begin{aligned}
+(2 + 3e_1)(4 + 2e_1) &amp;= (2)(4) + 2(2e_1) + 4(3e_1) + (3e_1)(2e_1) \newline
+&amp;= 8 + 4e_1 + 12e_1 + 6 \newline
+&amp;= 8 + 6 + 4e_1 + 12e_1 \newline
+&amp;= 14 + 16e_1
+\end{aligned}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="op">=</span> Multivector([BasisBlade(<span class="op">-</span><span class="fl">9.</span>, e12), BasisBlade(<span class="fl">6.</span>, scalar)])</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="op">=</span> Multivector([BasisBlade(<span class="dv">5</span>, e2), BasisBlade(<span class="op">-</span><span class="fl">2.</span>, e1)])</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'(</span><span class="sc">{</span>m1<span class="sc">}</span><span class="ss">)(</span><span class="sc">{</span>m2<span class="sc">}</span><span class="ss">) = </span><span class="sc">{</span>gp(m1, m2)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(-9.0e12 + 6.0s)(5e2 + -2.0e1) = -57.0e1 + 12.0e2</code></pre>
+</div>
+</div>
+<p>Again, by hand:</p>
+<p><span class="math display">\[\begin{aligned}
+(-9e_{12} + 6)(5e_2 - 2e_1) &amp;= (-9e_{12})(5e_2) + (-9e_{12})(-2e_1) + 6(5e_2) + 6(-2e_1) \newline
+&amp;= -45e_1 - 18e_2 + 30e_2 - 12e_1 \newline
+&amp;= -45e_1 - 12e_1 + 30e_2 - 18e_2 \newline
+&amp;= -57e_1 + 12e_2
+\end{aligned}
+\]</span></p>
+</section>
+</section>
+<section id="readings" class="level2">
+<h2 class="anchored" data-anchor-id="readings">Readings</h2>
+<p>Geometric Algebra Primer (Suter, 2003)</p>
+<ul>
+<li>Chapter 3.1 The Geometric Product</li>
+<li>Chapter 3.3 The Geometric Product Continued</li>
+</ul>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s Next?</h2>
+<p>This is the end for now! Thank you for taking the time to learn from these tutorials :)</p>
+<p>In the future, I plan to add more on applications of Geometric Algebra to geometry, physics, and mathematics.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

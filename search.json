@@ -1,0 +1,191 @@
+[
+  {
+    "objectID": "ga.html",
+    "href": "ga.html",
+    "title": "Geometric Algebra",
+    "section": "",
+    "text": "In Linear Algebra, we manipulate vectors and matrices in all sorts of ways to solve equations, perform transformations (like translations, rotations), and even distinguish dogs from cats. It’s a very powerful framework, but it does have some quirks, like how the cross product is only well-defined in 3 and 7 dimensions, or how vectors are routinely used to represent high-dimensional things even though vectors are really only just one dimensional.\nIn Geometric Algebra, there exist multidimensional vectors, and vector products work for arbitrary dimensions. Additionally, algebraic operations in GA directly correspond with geometric operations, like rotations, reflections, and intersections. I don’t want to spoil too much at this point, so that’s all I will say for now."
+  },
+  {
+    "objectID": "ga.html#reading",
+    "href": "ga.html#reading",
+    "title": "Geometric Algebra",
+    "section": "Reading",
+    "text": "Reading\nAfter reading a tutorial section, I encourage you to also read specific sections from the “Geometric Algebra Primer”. The accompanied reading for this notebook is “Chapter 1: Introduction”."
+  },
+  {
+    "objectID": "ga.html#whats-next",
+    "href": "ga.html#whats-next",
+    "title": "Geometric Algebra",
+    "section": "What’s Next?",
+    "text": "What’s Next?\nNext, we discuss subspaces."
+  },
+  {
+    "objectID": "subspaces.html",
+    "href": "subspaces.html",
+    "title": "Subspaces",
+    "section": "",
+    "text": "import matplotlib.pyplot as plt\nimport numpy as np"
+  },
+  {
+    "objectID": "subspaces.html#vectors-are-1-dimensional",
+    "href": "subspaces.html#vectors-are-1-dimensional",
+    "title": "Subspaces",
+    "section": "Vectors are 1-Dimensional",
+    "text": "Vectors are 1-Dimensional\nVectors represent lines, or 1D subspaces. Despite this, in Linear Algebra vectors are used to represent planes, albeit in an awkward way. Since vectors don’t have enough dimensions to represent a plane, we construct normal vectors to represent them.\nInstead, why not just have 2D vectors? Seems simple, but how do you construct 2D vectors? First, consider the opposite case of constructing a lower dimensional subspace. The dot product is an operator that takes two vectors and returns a scalar. Numerically, this is just a sum of the products of corresponding elements of each vector:\nFor example, if we have \\(v_1 = [5, 12]\\), and \\(v_2 = [-6, 8]\\), the dot product is: \\(v_1 \\cdot v_2 = (5)(-6) + (12)(8) = 66\\)\n\nvec1 = np.array([5., 12.])\nvec2 = np.array([-6., 8.])\nnp.dot(vec1, vec2)\n\n66.0\n\n\nBut geometrically, you can interpret the dot product as the length of \\(v_1\\) multiplied by the length of the projection of \\(v_2\\) onto \\(v_1\\):\n\ndef calc_projection_vector(vec1: np.ndarray, vec2: np.ndarray) -> np.ndarray:\n    \"\"\"Calculate the projection vector of vec1 onto vec2\"\"\"\n    vec2_magnitude = np.linalg.norm(vec2) \n    projection_magnitude = (np.dot(vec1, vec2) / vec2_magnitude)\n    projection_direction = vec2 / vec2_magnitude\n    projection_vec = projection_magnitude * projection_direction\n    return projection_vec\n\n\n\ncalc_projection_vector\n\n calc_projection_vector (vec1:numpy.ndarray, vec2:numpy.ndarray)\n\nCalculate the projection vector of vec1 onto vec2\n\ndef plot_dot_product(vec1: np.ndarray, vec2: np.ndarray) -> plt.Figure:\n    \"\"\"Visualize the dot product\"\"\"\n    fig, ax = plt.subplots(1, 1)\n    origin = np.array([0, 0])\n    colors = ('r', 'b')\n    for color, vec in zip(colors, (vec1, vec2)):\n        ax.quiver(*origin, *vec, scale=1, scale_units='xy', width=0.01, color=[color],\n            label=f'len={round(np.linalg.norm(vec), 2)}'\n        )\n    try:\n        projected_vector = calc_projection_vector(vec1, vec2)\n        ax.quiver(*origin, *projected_vector, scale=1, scale_units='xy', width=0.01, color=['g'], \n            label=f'len={round(np.linalg.norm(projected_vector), 2)}'\n        )\n        projection_line = np.array([projected_vector, vec1]).T\n        ax.plot(*projection_line)\n        \n    except ZeroDivisionError as zerr:\n        print('Encountered zero division! Cannot plot projected vector')\n    ax.set_title(f'Projection Vectors (Dot Product={np.dot(vec1, vec2)})')\n    ax.set_aspect('equal')\n    ax.set_xlim([-10., 10])\n    return fig\n\n\n\n\nplot_dot_product\n\n plot_dot_product (vec1:numpy.ndarray, vec2:numpy.ndarray)\n\nVisualize the dot product\n\nfig = plot_dot_product(vec1, vec2)\nplt.legend(bbox_to_anchor=(1.04, 0.6))\nplt.show()\n\n\n\n\nLowering the dimensionality of the subspace has to do with projection. To get a higher dimensional subspace, we need to do the opposite of projection, i.e extension."
+  },
+  {
+    "objectID": "subspaces.html#bivectors",
+    "href": "subspaces.html#bivectors",
+    "title": "Subspaces",
+    "section": "Bivectors",
+    "text": "Bivectors\nWe can construct a 2D object by extending the two vectors into a parallelogram. This new 2D object is called a bivector, or a 2-vector. In math notation we write \\(a \\wedge b\\).\nAlternatively, we can decompose \\(a\\) and \\(b\\) into each orthogonal (perpendicular) basis. This is exactly like splitting a vector into it’s \\(x\\) and \\(y\\) components, although in the geometric algebra literature it’s common to refer to the bases as \\(e_1\\) and \\(e_2\\).\nFor example, \\(a = \\alpha_1 e_1 + \\alpha_2 e_2\\) and \\(b = \\beta_1 e_1 + \\beta_2 e_2\\), where the greek letters are scalars. You can see the full derivation in the Geometric Algebra Primer (Chapter 2.1.1), but know that \\(a \\wedge b = (\\alpha_1 \\beta_2 - \\alpha_2 \\beta_1) e_1 \\wedge e_2\\).\nNotice anything about \\((\\alpha_1 \\beta_2 - \\alpha_2 \\beta_1) e_1 \\wedge e_2\\)? The scalar factor is the determinant of a \\(2\\times 2\\) matrix. The value corresponds to the area of a parallelogram created by the vectors \\(a\\) and \\(b\\).\n\nNote that people tend to abbreviate \\(e_1 \\wedge e_2\\) as \\(e_{12}\\).\n\n\n\ndef plot_bivector(vec1: np.ndarray, vec2: np.ndarray) -> plt.Figure:\n    \"\"\"Plot a bivector given two vectors\"\"\"\n    origin = np.array([0., 0.])\n    vectors = (vec1, vec2, -vec1, -vec2)\n    colors = ('r', 'g', 'b', 'y')\n    fig, ax = plt.subplots(1, 1)\n    for color, vec in zip(colors, vectors):\n        ax.quiver(*origin, *vec, scale=1, scale_units='xy', width=0.02, color=[color])\n        origin += vec\n    ax.set_title('Bivector')\n    ax.set_aspect('equal')\n    return fig\n\n\n\nplot_bivector\n\n plot_bivector (vec1:numpy.ndarray, vec2:numpy.ndarray)\n\nPlot a bivector given two vectors\n\nfig = plot_bivector(vec1, vec2)\nplt.show()\n\n\n\n\n\n# A bivector with the same magnitude, but opposite orientation\nfig = plot_bivector(vec2, vec1)\nplt.show()\n\n\n\n\nNotice that orientation matters! We use positive and negative signs to denote orientation, so \\(a \\wedge b = - b \\wedge a\\)\nWe aren’t just restricted to bivectors. There are many vectors of arbitrary dimension, which we call blades:\n\nScalars are 0-blades\n\n2, 42, \\(\\tau\\), 13.6, \\(\\pi\\), etc\n\nThe vectors we are used to from Linear Algebra are 1-blades\n\n\\(v = 102e_1 + 4e_2 + 69e_3 - 30e_4\\)\n\nBivectors are 2-blades\n\n\\(A = 420 e_1 \\wedge e_2\\) (‘A’ for area)\n\nTrivectors are 3-blades\n\n\\(V = -256 e_1 \\wedge e_2 \\wedge e_3\\) (‘v’ for volume)\n\nk-vectors are k-blades\n\n\\(C = 1.618 e_1 \\wedge e_2 \\wedge ... \\wedge e_k\\) (no reason for ‘C’)\n\n\nThe number in front of the word blade, like 2 or \\(k\\), is the grade of the blade.\n\nNote that you can have a k-dimensional blade existing in a n-dimensional space, as long as \\(k \\leq n\\)."
+  },
+  {
+    "objectID": "subspaces.html#readings",
+    "href": "subspaces.html#readings",
+    "title": "Subspaces",
+    "section": "Readings",
+    "text": "Readings\nGeometric Algebra Primer (Suter, 2003)\n\nChapter 2 Introduction\nChapter 2.1 Bivectors\nChapter 2.3 Blades"
+  },
+  {
+    "objectID": "subspaces.html#whats-next",
+    "href": "subspaces.html#whats-next",
+    "title": "Subspaces",
+    "section": "What’s Next?",
+    "text": "What’s Next?\nNext, we look at representing basis blades on a computer."
+  },
+  {
+    "objectID": "products.html",
+    "href": "products.html",
+    "title": "Products",
+    "section": "",
+    "text": "from geomalgebra.basisblades import ga2d, BasisBlade\nfrom geomalgebra.multivectors import Multivector, add"
+  },
+  {
+    "objectID": "products.html#the-geometric-product",
+    "href": "products.html#the-geometric-product",
+    "title": "Products",
+    "section": "The Geometric Product",
+    "text": "The Geometric Product\nWe have seen the dot product and the wedge product, but the most important product in GA is the geometric product.\nFor arbitrary vectors (1-blades), \\(a\\) and \\(b\\), the geometric product is:\n\\[\nab = a \\cdot b + a \\wedge b\n\\]\nAlthough we saw what the outer product does geometrically, we glossed over it’s properties. The outer product is associative and distributitve, and also \\(\\vec{a} \\wedge \\vec{a} = 0\\) (extending \\(\\vec{a}\\) along itself produces no area!) and \\(\\vec{a} \\wedge \\vec{b} = - \\vec{a} \\wedge \\vec{b}\\) (orientation matters, like we saw earlier).\nThe dot products works like it does in linear algebra. Perpendicular vectors have a dot product of \\(0\\), and parallel vectors have a dot product of \\(1\\).\nTo better understand the geometric product, try the following questions on your own. If you get stuck, you can reveal a walkthrough of the answer.\n\nWhat is \\(e_1 e_2\\)?\n\n\n\n\n\n\n\nAnswer\n\n\n\n\n\n\\[\\begin{aligned}\ne_1 e_2 &= e_1 \\cdot e_2 + e_1 \\wedge e_2 \\newline\n&= 0 + e_1 \\wedge e_2 & \\text{Dot product of perpendicular vectors is zero} \\newline\n&= e_1 \\wedge e_2  = e_{12} \\newline\n\\end{aligned}\n\\]\nThe geometric product of two (non-parallel) vectors is a bivector.\n\n\n\n\nFind \\(e_1 e_1\\) (i.e. \\(e_1^2\\)):\n\n\n\n\n\n\n\nAnswer\n\n\n\n\n\n\\[\\begin{aligned}\ne_1 e_1 &= e_1 \\cdot e_1 + e_1 \\wedge e_1 \\newline\n&= 1 + e_1 \\wedge e_1 & \\text{Dot product of paralell vectors is one} \\newline\n&= 1 + 0 & \\text{Outer/Wedge product of parallel vectors is zero} \\newline\n&= 1\n\\end{aligned}\n\\]\nInteresting. Here we have an entity, \\(e_1\\) that is distinct from the real number \\(1\\), but that squares to 1.\n\n\n\n\nLast example, calculate \\(e_{12}e_{12}\\):\n\n\n\n\n\n\n\nAnswer\n\n\n\n\n\n\\[\\begin{aligned}\ne_{12} e_{12} &= e_1 e_2 e_1 e_2 \\newline\n&= - e_2 e_1 e_1 e_2 & e_{12} = e_1\\wedge e_2 = -e_2 \\wedge e_1 = -e_{21} \\newline\n&= - e_2 e_1^2 e_2 & e_i^2 = 1 \\newline\n&= - e_2 e_2 = - e_2^2 \\newline\n&= -1\n\\end{aligned}\n\\]\nAlso very interesting. We have an entity that squares to -1, like an imaginary number.\n\nSee Imaginary Numbers Are Not Real for more on this result, space-time physics, and some history of Geometric Algebra."
+  },
+  {
+    "objectID": "products.html#implementation-for-basisblades",
+    "href": "products.html#implementation-for-basisblades",
+    "title": "Products",
+    "section": "Implementation for BasisBlades",
+    "text": "Implementation for BasisBlades\nBased on the calculations above, \\(e_i e_i\\) cancels out the basis \\(e_i\\), and \\(e_i e_j\\) (\\(i \\neq j\\)) retains both bases.\nThis is pretty similar to the XOR bitwise function. If you have 1 XOR 1, it cancels to 0. Also two different bits, like 1 XOR 0, will become 1.\n\n^ is the XOR operator in Python.\n\nFor example, \\(e_1 e_{12}\\) as an XOR looks like:\n\\[\n\\begin{array}{ccc}\n   e_1 & 0 & 1 \\\\\n   e_{12} & 1 & 1 \\\\ \\hline\n   e_2 & 1 & 0\n\\end{array}\n\\]\n\n# Correct\nprint(BasisBlade.bit_bases2d.get(e1 ^ e2))\n# Correct\nprint(BasisBlade.bit_bases2d.get(e1 ^ e1))\n# Incorrect! Wrong sign! Should be -s (i.e. -1.0 scalar)\nprint(BasisBlade.bit_bases2d.get(e12 ^ e12))\n\ne12\ns\ns\n\n\nThe XOR is close, but isn’t quite right. When manipulating the vectors algebraically we made sure to change the sign when swapping the order of operands (\\(e_1 e_2 = -e_2 e_1\\)).\nBut how do we encode the sign change with the bit-representation of basis blades? First let’s assume canonical order is postive (canonical order is when the subscript of the bases are in increasing order).\nThen if we are presented with bases out of canonical order, say \\(e_2 e_1\\), we can determine that the first basis is canonically greater than the second by counting how many \\(1\\) s in the first basis are in a greater position than \\(1\\) s in the second basis.\nFor example,\n\\[\\begin{array}{ccc}\ne_2 & 1 & 0 \\\\\ne_1 & 0 & 1 \\\\\n\\end{array}\n\\]\nThe first number, \\(e_2\\), has a \\(1\\) in a greater position than the second number, \\(e_1\\). Therefore, flipping the order of these bases once will put the numbers in canonical order. Every flip changes the sign, which means the geometric product of these bases is negative.\nAnother example,\n\\[\n\\begin{array}{ccc}\ne_2 & 1 & 0 \\\\\ne_{12} & 1 & 1 \\\\\n\\end{array}\n\\]\nAgain, there is a \\(1\\) in the first number, \\(e_2\\), ahead of a \\(1\\) in the second number, so the answer is negative.\nA computer can’t visually inspect binary numbers like we can, but we can simulate the same logic by sliding bits in the the first number towards the right, and using the bitwise AND operator and a bit_count function to count how many \\(1\\) s are ahead of the \\(1\\) s in the second number after each slide. Effectively, we count how many bases in the first number are greater than the bases in the second number, thereby informing us of how many sign changes to make.\nStarting from a positive number, an odd number of sign changes yields a negative number and an even number of sign changes yields a positive.\n\ndef canonical_sign(basis_1: int, basis_2: int) -> int:\n    \"\"\"Count the number of basis blade swaps required to get 'a' and 'b' in canonical order\n    Canonical order means increasing order is positive, i.e: e1^e2 is positive, e2^e1 is negative\n    \"\"\"\n    basis_1 = basis_1 >> 1\n    num_swaps = 0\n    while basis_1:\n        # Count how many bases in basis_1 are canonically greater than those in basis_2\n        num_swaps += int.bit_count(basis_1 & basis_2)\n        basis_1 = basis_1 >> 1\n    num_swaps_is_odd = (num_swaps & 1) == 0\n    return 1. if (num_swaps_is_odd) else -1.\n\n\n\ncanonical_sign\n\n canonical_sign (basis_1:int, basis_2:int)\n\nCount the number of basis blade swaps required to get ‘a’ and ‘b’ in canonical order Canonical order means increasing order is positive, i.e: e1^e2 is positive, e2^e1 is negative\n\nassert canonical_sign(ga2d.e1, ga2d.e2) == 1.\nassert canonical_sign(ga2d.e2, ga2d.e1) == -1.\n\nScalar multiplication works like usual, so the geometric product for basis blades is:\n\ndef basis_blade_gp(b1: BasisBlade, b2: BasisBlade):\n    \"\"\"Geometric Product for basis blades\"\"\"\n    sign = canonical_sign(b1.basis, b2.basis)\n    return BasisBlade(sign * b1.weight * b2.weight, b1.basis ^ b2.basis)\n\n\n\n\nbasis_blade_gp\n\n basis_blade_gp (b1:geomalgebra.basisblades.BasisBlade,\n                 b2:geomalgebra.basisblades.BasisBlade)\n\nGeometric Product for basis blades\n\n# Basis Bivector squares to -1 under the geometric product - just like imaginary numbers!\nprint(basis_blade_gp(BasisBlade(1., e12), BasisBlade(1., e12)))\n\n-1.0s"
+  },
+  {
+    "objectID": "products.html#implementation-for-multivectors",
+    "href": "products.html#implementation-for-multivectors",
+    "title": "Products",
+    "section": "Implementation for Multivectors",
+    "text": "Implementation for Multivectors\nThe geometric product for multivectors is:\n\nassociative: \\(A(BC) = (AB)C\\)\ncommutative under scalar multiplication: \\(\\lambda A = A \\lambda\\) (where \\(\\lambda\\) is a scalar)\ndistributive: \\(A(B + C) = AB + AC\\)\n\nwhere \\(A, B, C\\) are multivectors.\nIn terms of implementation, this just means we need to multiply all of the terms of one multivector by all of the terms of the other multivectors. It’s really just the same as Polynomial multiplication.\n\nFor simplicity, we won’t try to implement any fancy multiplication algorithm that runs better than \\(O(n^2)\\).\n\n\ndef gp(m1: Multivector|BasisBlade, m2: Multivector|BasisBlade) -> Multivector:\n    \"\"\"Geometric product for Multivectors and Basis Blades\"\"\"\n    basis_blades: list[BasisBlade] = list()\n    if isinstance(m1, BasisBlade): m1 = Multivector([m1])\n    if isinstance(m2, BasisBlade): m2 = Multivector([m2])\n    for basis_1 in m1.blades.values():\n        for basis_2 in m2.blades.values():\n            basis_blades = [*basis_blades, basis_blade_gp(basis_1, basis_2)]\n    return Multivector(basis_blades)\n\n\n\ngp\n\n gp (m1:geomalgebra.multivectors.Multivector|geomalgebra.basisblades.Basis\n     Blade, m2:geomalgebra.multivectors.Multivector|geomalgebra.basisblade\n     s.BasisBlade)\n\nGeometric product for Multivectors and Basis Blades\n\nm1 = Multivector([BasisBlade(2., scalar), BasisBlade(3., e1)])\nm2 = Multivector([BasisBlade(4., scalar), BasisBlade(2., e1)])\nprint(f'({m1})({m2}) = {gp(m1, m2)}')\n\n(2.0s + 3.0e1)(4.0s + 2.0e1) = 14.0s + 16.0e1\n\n\nWe can verify this result by hand:\n\\[\\begin{aligned}\n(2 + 3e_1)(4 + 2e_1) &= (2)(4) + 2(2e_1) + 4(3e_1) + (3e_1)(2e_1) \\newline\n&= 8 + 4e_1 + 12e_1 + 6 \\newline\n&= 8 + 6 + 4e_1 + 12e_1 \\newline\n&= 14 + 16e_1\n\\end{aligned}\n\\]\n\nm1 = Multivector([BasisBlade(-9., e12), BasisBlade(6., scalar)])\nm2 = Multivector([BasisBlade(5, e2), BasisBlade(-2., e1)])\nprint(f'({m1})({m2}) = {gp(m1, m2)}')\n\n(-9.0e12 + 6.0s)(5e2 + -2.0e1) = -57.0e1 + 12.0e2\n\n\nAgain, by hand:\n\\[\\begin{aligned}\n(-9e_{12} + 6)(5e_2 - 2e_1) &= (-9e_{12})(5e_2) + (-9e_{12})(-2e_1) + 6(5e_2) + 6(-2e_1) \\newline\n&= -45e_1 - 18e_2 + 30e_2 - 12e_1 \\newline\n&= -45e_1 - 12e_1 + 30e_2 - 18e_2 \\newline\n&= -57e_1 + 12e_2\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "products.html#readings",
+    "href": "products.html#readings",
+    "title": "Products",
+    "section": "Readings",
+    "text": "Readings\nGeometric Algebra Primer (Suter, 2003)\n\nChapter 3.1 The Geometric Product\nChapter 3.3 The Geometric Product Continued"
+  },
+  {
+    "objectID": "products.html#whats-next",
+    "href": "products.html#whats-next",
+    "title": "Products",
+    "section": "What’s Next?",
+    "text": "What’s Next?\nThis is the end for now! Thank you for taking the time to learn from these tutorials :)\nIn the future, I plan to add more on applications of Geometric Algebra to geometry, physics, and mathematics."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "geomalgebra",
+    "section": "",
+    "text": "The tutorial is organized roughly according to chapters 1 - 3 of Geometric Algebra Primer by Jaap Suter (2003). A copy of the pdf is included in the repository. Suter explains the theory very well, so I wanted these notes to focus more on implementation.\nSome topics covered:\n\n\nSubspaces\n\nBasis Blades (scalar, vector, bivector)\n\nMultivectors\n\nGeometric Product"
+  },
+  {
+    "objectID": "index.html#install",
+    "href": "index.html#install",
+    "title": "geomalgebra",
+    "section": "Install",
+    "text": "Install\ngit clone https://github.com/ImAKappa/some2.git\n\nconda create -n some2 python=3.10 --file some2-env.txt\nTested on Windows WSL2 for Python 3.10. The minimum supported Python version is 3.10, but can be adapted to 3.9 by modifying syntax for type hints and some standard library functions."
+  },
+  {
+    "objectID": "index.html#learn-geometric-algebra",
+    "href": "index.html#learn-geometric-algebra",
+    "title": "geomalgebra",
+    "section": "Learn Geometric Algebra",
+    "text": "Learn Geometric Algebra\nBeyond this tutorial, I recommend viewing these resources in the following order:\n\nGeometric Algebra Primer (2003): Very approachable. It’s so great that I have included a copy in this repository. Throughout the tutorials I will refer to the relevant sections.\nLinear and Geometric Algebra (Alan Macdonald, 2011). Great intro to the subject with lots of practice problems.\nGeometric Algebra (Thesis by Daniel Fontijne, 2007): Straightforward intro to GA. Includes notes on implementation. See also Geometric Algebra for Computer Science (Dorst, Fontijne, Mann, 2007-2009) which is a textbook that expands on the thesis.\nBivector.net: Basically the geometric algebra fanclub website. More explanations in the form of papers, conferences, code, and videos can be found here."
+  },
+  {
+    "objectID": "index.html#background",
+    "href": "index.html#background",
+    "title": "geomalgebra",
+    "section": "Background",
+    "text": "Background\nLast year, I came across a kind of math called Geometric Algebra (GA). It was interesting because proponents said it’s like linear algebra but more suitable for geometrical applications. I was a bit skeptical since it was a bit obscure, but figured why not try to learn it.\nThe theory was not too bad to get the hang of, but it was much harder for me to grok numerical GA. In my head there was a big disconnect between symbolic manipulations of GA and corresponding computer implementations. I found many neat libraries like Ganja.js, Clifford, and Klein. They were nice to use, but their implementations were a bit too complicated for me. I figured if I wanted to understand numerical GA better, I needed to try and implement my own GA library. “But maybe later” I said, not really knowing where to start.\nWhen 3Blue1Brown announced the SoME2, I found the motivation to actually start the project. It was a bit tricky to put together a GA implementation that was understandable, not only to myself, but to other people. Hopefully I succeeded, or at least got a few new people interested in GA. Of course, the repository won’t be abandoned after the competition ends. My next goal is to explain and implement a very interesting flavour of geometric algebra called Plane-Based Geometric Algebra. But that’s a project for future me."
+  },
+  {
+    "objectID": "multivectors.html",
+    "href": "multivectors.html",
+    "title": "Multivectors",
+    "section": "",
+    "text": "from dataclasses import dataclass, field, InitVar\nfrom geomalgebra.basisblades import ga2d, BasisBlade\nJust like how complex numbers are a linear combination of real and imaginary numbers, a multivector is just a linear combination of weighted basis blades.\nFor example, let \\(m\\) be a multivector where \\(m = 3.0e_1 -2.3e_2 + 4.02e_{23}\\)"
+  },
+  {
+    "objectID": "multivectors.html#implementation",
+    "href": "multivectors.html#implementation",
+    "title": "Multivectors",
+    "section": "Implementation",
+    "text": "Implementation\nAgain, we use a dataclass (they are incredibly useful!), but this time we need to use the InitVar type from the dataclasses module. It tells the dataclass decorator that a particular field should be passed only to the __post_init__ method and not attached to the class.\nWe need this for our implementation because we want to be able to construct a Multivector using a list of BasisBlades, but we don’t actually want to store the basis blades as a list internally. A better data structure is a dict.\nThe keys of the Multivector dictionary will be the basis blades.\n\n@dataclass(frozen=True)\nclass Multivector():\n    \"\"\"A Multivector is a linear combination of basis blades.\"\"\"\n    # InitVar variable is not set as class field, just sent to post_init method\n    basis_blades: InitVar[list[BasisBlade]] = None\n    blades: dict[int, BasisBlade] = field(init=False, default_factory=dict)\n    prettyprint: str = field(init=False, repr=False)\n\n    def __post_init__(self, basis_blades: list[BasisBlade]):\n        for bb in basis_blades:\n            if self.blades.get(bb.basis, False):\n                # If basis blade already exists, sum the weights of the existing and new basis blade\n                existing_bb = self.blades[bb.basis]\n                self.blades[bb.basis] = BasisBlade(existing_bb.weight + bb.weight, existing_bb.basis)\n            else:\n                # If basis blade doesn't exist, create a new key-value pair for that basis blade\n                self.blades[bb.basis] = bb\n        object.__setattr__(self, 'prettyprint', \" + \".join(str(b) for b in self.blades.values()))\n\n    def __str__(self) -> str:\n        return self.prettyprint\n\n\n\nMultivector\n\n Multivector (basis_blades:dataclasses.InitVar[list[geomalgebra.basisblade\n              s.BasisBlade]]=None)\n\nA Multivector is a linear combination of basis blades.\n\nm = Multivector([BasisBlade(3.0, e2), BasisBlade(-5.0, e12), BasisBlade(12.2, scalar)])\nm\n\nMultivector(blades={2: BasisBlade(weight=3.0, basis=2, basis_name='e2'), 3: BasisBlade(weight=-5.0, basis=3, basis_name='e12'), 0: BasisBlade(weight=12.2, basis=0, basis_name='s')})\n\n\n\n# Pretty printing like math notation\nprint(m)\nstr(m)\n\n3.0e2 + -5.0e12 + 12.2s\n\n\n'3.0e2 + -5.0e12 + 12.2s'\n\n\n\n\nAddition\nGiven that multivectors are a sum of weighted basis blades, we should implement an add function that accepts an arbitrary number of multivectors and/or basis blades and concatenates them into one multivector. Just like with real numbers, addition of multivectors is associative so we don’t need to worry about the order of arguments.\nSince we designed our multivector class to accept a list of basis blades, we can easily implement add() to take advantage of that.\n\nSee Arbitrary Arguments List for details on the *args syntax. In a nutshell, it combines a list of comma separated function arugments into a tuple called args.\nWhen * is prepended to specific iterables (like tuples or lists), it does the opposite, unpacking the elements of the iterable. So, to combine two lists, we can do list_combined = [*list_a, *list_b].\n\n\ndef add(*args: list[Multivector|BasisBlade]) -> Multivector:\n    \"\"\"Add Multivectors and BasisBlades\"\"\"\n    basis_blades: list[BasisBlade] = list()\n    for m in args: \n        if isinstance(m, Multivector):\n            # Convert multivectors/basisblades to a list of BasisBlades\n            basis_blades = [*basis_blades, *list(m.blades.values())]\n        if isinstance(m, BasisBlade):\n            basis_blades = [*basis_blades, m]\n    return Multivector(basis_blades)\n\n\n\nadd\n\n add (*args:list[__main__.Multivector|geomalgebra.basisblades.BasisBlade])\n\nAdd Multivectors and BasisBlades\n\n# Add BasisBlades\nb1 = BasisBlade(2.0, e1)\nb2 = BasisBlade(4.0, e12)\nb3 = BasisBlade(-1.0, e1)\nprint(f'({b1}) + ({b2}) + ({b3}) = {add(b1, b2, b3)}')\n\n(2.0e1) + (4.0e12) + (-1.0e1) = e1 + 4.0e12\n\n\n\n# Add Multivectors\nm1 = Multivector([b1, b2, b3])\nm2 = Multivector([b2, b3])\nprint(f'({m1}) + ({m2}) = {add(m1, m2)}')\n\n(e1 + 4.0e12) + (4.0e12 + -1.0e1) = 0.0e1 + 8.0e12\n\n\n\n# Add Multivectors and BasisBlades\nprint(f'({m1}) + ({b2}) = {add(m1, b2)}')\n\n(e1 + 4.0e12) + (4.0e12) = e1 + 8.0e12"
+  },
+  {
+    "objectID": "multivectors.html#readings",
+    "href": "multivectors.html#readings",
+    "title": "Multivectors",
+    "section": "Readings",
+    "text": "Readings\nGeometric Algebra Primer (Suter, 2003)\n\nChapter 3 Introduction\nChapter 3.2 Multivectors"
+  },
+  {
+    "objectID": "multivectors.html#whats-next",
+    "href": "multivectors.html#whats-next",
+    "title": "Multivectors",
+    "section": "What’s Next?",
+    "text": "What’s Next?\nWe can add multivectors now, but how do we multiply them? The next notebook covers the most fundamental operation in Geometric Algebra: the geometric product."
+  },
+  {
+    "objectID": "basisblades.html",
+    "href": "basisblades.html",
+    "title": "Basis Blades",
+    "section": "",
+    "text": "from dataclasses import dataclass, field\nfrom collections import namedtuple"
+  },
+  {
+    "objectID": "basisblades.html#whats-a-basis",
+    "href": "basisblades.html#whats-a-basis",
+    "title": "Basis Blades",
+    "section": "What’s a Basis?",
+    "text": "What’s a Basis?\nA Basis is a finite set \\(\\mathcal{B} = \\{\\vec{b_1}, \\vec{b_2}, ..., \\vec{b_n}\\}\\) of vectors in a vector space \\(\\vec{V}\\). \\(\\mathcal{B}\\) is a basis for \\(\\vec{V}\\) if every vector in \\(\\vec{V}\\) is a linear combination of the vectors in \\(\\mathcal{B}\\) in one and only one way 1.\nA vector space, \\(V\\), is a set (or collection) of elements that can be scaled and linearly added together. See Abstract Vectors Spaces by 3Blue1Brown.\n\nI recommend watching 3Blue1Brown’s explanation of Bases & Linear Combinations for a more intuitive explanation.\n\nNote that orthogonal bases are denoted \\(e_i\\) instead of \\(\\vec{b}_i\\).\nIn Geometric Algebra, we have \\(2^n\\) basis blades (\\(k\\)-dimensional vectors) for a \\(n\\)-dimensional vector space, instead of just \\(n\\) basis vectors like in Linear Algebra.\nFor example, a 3D vector space in Linear Algebra has three basis vectors: \\(\\hat{i}, \\hat{j}, \\hat{k}\\).\nHowever, in Geometric Algebra a 3D vector space has 8 basis \\(k\\)-blades:\n\n0-blades (scalar): \\(1\\)\n1-blades (vectors): \\(e_1, e_2, e_3\\) (these correspond with \\(\\hat{i}, \\hat{j}, \\hat{k}\\))\n2-blades (bivectors): \\(e_{12}, e_{13}, e_{23}\\)\n3-blades (trivectors): \\(e_{123}\\)"
+  },
+  {
+    "objectID": "basisblades.html#implementation",
+    "href": "basisblades.html#implementation",
+    "title": "Basis Blades",
+    "section": "Implementation",
+    "text": "Implementation\nNotice that every basis blade either contains a basis vector \\(e_i\\) or it doesn’t. Consider the GA 3D vector space; \\(e_{12}\\) contains \\(e_1\\) and \\(e_2\\), but doesn’t contain \\(e_3\\). In other words, we can encode every basis blade by the presence or absence of each basis 1-vector. We use a bit to encode presence (1) or absence (0), and denote the basis 1-vector by the position of each bit:\n\\[\n{0 \\atop e3} {0 \\atop e2} {0 \\atop e1}\n\\]\nTherefore the whole space of 3D is encoded like this:\n\\[\\begin{array}{cccc}\n. & e_3 & e_2 & e_1 \\\\\n1 (\\text{scalar}) & 0 & 0 & 0 \\\\\ne_1 & 0 & 0 & 1 \\\\\ne_2 & 0 & 1 & 0 \\\\\ne_3 & 1 & 0 & 0 \\\\\ne_{12} & 0 & 1 & 1 \\\\\ne_{13} & 1 & 0 & 1 \\\\\ne_{23} & 1 & 1 & 0 \\\\\ne_{123} & 1 & 1 & 1 \\\\\n\\end{array}\n\\]\nIn general, we need \\(2^n\\) bits to represent all basis blades of a \\(n\\)-dimensional space.\nFor simplicity, we’ll stick to a 2 dimensional vector space for our implementation. In 2D we have 4 basis \\(k\\)-blades: \\(1\\) (unit scalar), \\(e1\\), \\(e2\\), and the unit bivector, \\(e_{12}\\).\nComputers store numbers in binary already, but Python defaults to printing numbers out in decimal. We can write binary numbers in Python as a string or integer, so we choose integer for convenience.\n\n# Binary string - must explicity convert to int\nprint('0b101', int('0b101', 2))\n# Binary integer\nprint(0b101)\n\n0b101 5\n5\n\n\nWe could use a list to store all the binary numbers for each basis, but namedtuples are more readable.\n\nPlus, when we import basis blades into other notebooks, we can import the tuple instead of each individual basis blade.\n\n\nGA2D = namedtuple('GA2D', ['scalar', 'e1', 'e2', 'e12'])\nga2d = GA2D(0b00, 0b01, 0b10, 0b11)\nga2d\n\nGA2D(scalar=0, e1=1, e2=2, e12=3)\n\n\n\n# For convenience, we unpack the basis blades into the global scope\nscalar, e1, e2, e12 = ga2d\n\n\nWeighted Basis Blades\nWhile basis blades are defined with a weight of 1.0, we could associate a custom weight value to each basis blade using a class. This makes it easier to implement multivectors in later notebooks, since multivectors are a sum of weighted basis blades.\nIn our Python implementation, we group together the weight and basis data using a dataclass.\n\n@dataclass(frozen=True)\nclass BasisBlade:\n    \"\"\"A BasisBlade is a fundamental element of a vector space\"\"\"\n    # --- Class variables (defined without type hint); shared by all BasisBlades\n    bit_bases2d = {0b0: 's', 0b1: 'e1', 0b10: 'e2', 0b11: 'e12'}\n\n    # --- Instance variables; made \"immutable\" by frozen=True\n    # a.k.a scale or magnitude associated with blade\n    weight: float = field(default=0.)\n    # integer encoding \n    basis: int = field(default=0)\n    # basis_name depends on basis, so it can only be set post-initialization\n    basis_name: str = field(init=False)\n\n    def __post_init__(self):\n        # Update the \"immutable\" basis_name field\n        object.__setattr__(self, 'basis_name', self.bit_bases2d.get(self.basis))\n\n    def __str__(self) -> str:\n        \"\"\"Pretty print like math notation\"\"\"\n        prettyprint = f'{self.weight if self.weight != 1 else \"\"}{self.basis_name}'\n        return prettyprint\n\n\n\n\nBasisBlade\n\n BasisBlade (weight:float=0.0, basis:int=0)\n\nA BasisBlade is a fundamental element of a vector space\nThe dataclass decorator automagically implements useful methods for our BasisBlade class like __eq__, __repr__, __init__, and more. See this mCoding video for an overview, and the dataclasses docs for details.\nAlso note that bit_bases2d is a class variable which means every instance of this class shares the same bit_bases2d. Contrast this with the instance variables weight, basis, and basis_name.\nFinally, note that we use object.__set_attr__(...) to modify the BasisBlade.basis_name attribute, despite the class being “frozen”. This is the only time a BasisBlade attribute needs to change post-initialization. See this StackOverflow post for more details.\n\n# example basis blade\nBasisBlade(4.0, e1)\n\nBasisBlade(weight=4.0, basis=1, basis_name='e1')\n\n\nThe BasisBlade class supports pretty-printing like math notation.\n\n# Weight and basis\nprint(BasisBlade(4.0, e1))\n# If weight=1. than only basis shown\nprint(BasisBlade(1.0, e12))\n# 's' (for scalar) helps distinguish BasisBlade class instance from Python floats\nprint(BasisBlade(-12., scalar))\n\n4.0e1\ne12\n-12.0s\n\n\n\n# dataclass automagically implements __eq__ method for us\nBasisBlade(-3.4, e2) == BasisBlade(-3.4, e2)\n\nTrue\n\n\nBesides __eq__, no other operators are overloaded! This keeps the BasisBlade class small, and makes the implementation of operators simpler to understand.\n\nOf course, lack of operator-overloading makes our implementation more inconvenient to use. For a fully-featured, operator-overloaded Geometric Algebra library see Clifford.\n\n\n# We cannot multiply floats and BasisBlades using '*' without operator overloading!\ntry:\n    3.4 * BasisBlade(1., e1)\nexcept TypeError as err:\n    print(err)\n\nunsupported operand type(s) for *: 'float' and 'BasisBlade'"
+  },
+  {
+    "objectID": "basisblades.html#readings",
+    "href": "basisblades.html#readings",
+    "title": "Basis Blades",
+    "section": "Readings",
+    "text": "Readings\nGeometric Algebra Primer (Suter, 2003)\n\nChapter 2.3 Basis Blades"
+  },
+  {
+    "objectID": "basisblades.html#whats-next",
+    "href": "basisblades.html#whats-next",
+    "title": "Basis Blades",
+    "section": "What’s Next?",
+    "text": "What’s Next?\nNext, we implement multivectors."
+  }
+]

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Summary: Basis blades span the entire space. They are implemented using binary numbers.">
+
+<title>geomalgebra - Basis Blades</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="geomalgebra - Basis Blades">
+<meta property="og:description" content="Summary: Basis blades span the entire space. They are implemented using binary numbers.">
+<meta property="og:site-name" content="geomalgebra">
+<meta name="twitter:title" content="geomalgebra - Basis Blades">
+<meta name="twitter:description" content="Summary: Basis blades span the entire space. They are implemented using binary numbers.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">geomalgebra</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ImAKappa/geomalgebra/"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Basis Blades</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">geomalgebra</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ga.html" class="sidebar-item-text sidebar-link">Geometric Algebra</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./subspaces.html" class="sidebar-item-text sidebar-link">Subspaces</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basisblades.html" class="sidebar-item-text sidebar-link active">Basis Blades</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multivectors.html" class="sidebar-item-text sidebar-link">Multivectors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./products.html" class="sidebar-item-text sidebar-link">Products</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#whats-a-basis" id="toc-whats-a-basis" class="nav-link active" data-scroll-target="#whats-a-basis">What’s a Basis?</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a>
+  <ul class="collapse">
+  <li><a href="#weighted-basis-blades" id="toc-weighted-basis-blades" class="nav-link" data-scroll-target="#weighted-basis-blades">Weighted Basis Blades</a></li>
+  <li><a href="#basisblade" id="toc-basisblade" class="nav-link" data-scroll-target="#basisblade">BasisBlade</a></li>
+  </ul></li>
+  <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings">Readings</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s Next?</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ImAKappa/geomalgebra/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Basis Blades</h1>
+</div>
+
+<div>
+  <div class="description">
+    <strong>Summary</strong>: Basis blades span the entire space. They are implemented using binary numbers.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dataclasses <span class="im">import</span> dataclass, field</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> namedtuple</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="whats-a-basis" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="whats-a-basis">What’s a Basis?</h2>
+<p>A <strong>Basis</strong> is a finite set <span class="math inline">\(\mathcal{B} = \{\vec{b_1}, \vec{b_2}, ..., \vec{b_n}\}\)</span> of vectors in a vector space <span class="math inline">\(\vec{V}\)</span>. <span class="math inline">\(\mathcal{B}\)</span> is a <em>basis</em> for <span class="math inline">\(\vec{V}\)</span> if every vector in <span class="math inline">\(\vec{V}\)</span> is a linear combination of the vectors in <span class="math inline">\(\mathcal{B}\)</span> in one and only one way <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="aside">A vector space, <span class="math inline">\(V\)</span>, is a set (or collection) of elements that can be scaled and linearly added together. See <a href="https://youtu.be/TgKwz5Ikpc8">Abstract Vectors Spaces</a> by 3Blue1Brown.</span></div></div>
+<blockquote class="blockquote">
+<p>I recommend watching <a href="https://youtu.be/k7RM-ot2NWY">3Blue1Brown’s explanation of Bases &amp; Linear Combinations</a> for a more intuitive explanation.</p>
+</blockquote>
+<p>Note that orthogonal bases are denoted <span class="math inline">\(e_i\)</span> instead of <span class="math inline">\(\vec{b}_i\)</span>.</p>
+<p>In Geometric Algebra, we have <span class="math inline">\(2^n\)</span> basis blades (<span class="math inline">\(k\)</span>-dimensional vectors) for a <span class="math inline">\(n\)</span>-dimensional vector space, instead of just <span class="math inline">\(n\)</span> basis vectors like in Linear Algebra.</p>
+<p>For example, a 3D vector space in Linear Algebra has three basis vectors: <span class="math inline">\(\hat{i}, \hat{j}, \hat{k}\)</span>.</p>
+<p>However, in Geometric Algebra a 3D vector space has 8 basis <span class="math inline">\(k\)</span>-blades:</p>
+<ul>
+<li>0-blades (scalar): <span class="math inline">\(1\)</span></li>
+<li>1-blades (vectors): <span class="math inline">\(e_1, e_2, e_3\)</span> (these correspond with <span class="math inline">\(\hat{i}, \hat{j}, \hat{k}\)</span>)</li>
+<li>2-blades (bivectors): <span class="math inline">\(e_{12}, e_{13}, e_{23}\)</span></li>
+<li>3-blades (trivectors): <span class="math inline">\(e_{123}\)</span></li>
+</ul>
+</section>
+<section id="implementation" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="implementation">Implementation</h2>
+<p>Notice that every basis blade either contains a basis vector <span class="math inline">\(e_i\)</span> or it doesn’t. Consider the GA 3D vector space; <span class="math inline">\(e_{12}\)</span> contains <span class="math inline">\(e_1\)</span> and <span class="math inline">\(e_2\)</span>, but doesn’t contain <span class="math inline">\(e_3\)</span>. In other words, we can encode every basis blade by the presence or absence of each basis 1-vector. We use a bit to encode presence (1) or absence (0), and denote the basis 1-vector by the position of each bit:</p>
+<p><span class="math display">\[
+{0 \atop e3} {0 \atop e2} {0 \atop e1}
+\]</span></p>
+<p>Therefore the whole space of 3D is encoded like this:</p>
+<p><span class="math display">\[\begin{array}{cccc}
+. &amp; e_3 &amp; e_2 &amp; e_1 \\
+1 (\text{scalar}) &amp; 0 &amp; 0 &amp; 0 \\
+e_1 &amp; 0 &amp; 0 &amp; 1 \\
+e_2 &amp; 0 &amp; 1 &amp; 0 \\
+e_3 &amp; 1 &amp; 0 &amp; 0 \\
+e_{12} &amp; 0 &amp; 1 &amp; 1 \\
+e_{13} &amp; 1 &amp; 0 &amp; 1 \\
+e_{23} &amp; 1 &amp; 1 &amp; 0 \\
+e_{123} &amp; 1 &amp; 1 &amp; 1 \\
+\end{array}
+\]</span></p>
+<div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="aside">In general, we need <span class="math inline">\(2^n\)</span> bits to represent all basis blades of a <span class="math inline">\(n\)</span>-dimensional space.</span></div></div>
+<p>For simplicity, we’ll stick to a 2 dimensional vector space for our implementation. In 2D we have 4 basis <span class="math inline">\(k\)</span>-blades: <span class="math inline">\(1\)</span> (unit scalar), <span class="math inline">\(e1\)</span>, <span class="math inline">\(e2\)</span>, and the unit bivector, <span class="math inline">\(e_{12}\)</span>.</p>
+<p>Computers store numbers in binary already, but Python defaults to printing numbers out in decimal. We can write binary numbers in Python as a string or integer, so we choose integer for convenience.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Binary string - must explicity convert to int</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'0b101'</span>, <span class="bu">int</span>(<span class="st">'0b101'</span>, <span class="dv">2</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Binary integer</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bn">0b101</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0b101 5
+5</code></pre>
+</div>
+</div>
+<p>We could use a list to store all the binary numbers for each basis, but <code>namedtuple</code>s are more readable.</p>
+<blockquote class="blockquote">
+<p>Plus, when we import basis blades into other notebooks, we can import the tuple instead of each individual basis blade.</p>
+</blockquote>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>GA2D <span class="op">=</span> namedtuple(<span class="st">'GA2D'</span>, [<span class="st">'scalar'</span>, <span class="st">'e1'</span>, <span class="st">'e2'</span>, <span class="st">'e12'</span>])</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ga2d <span class="op">=</span> GA2D(<span class="bn">0b00</span>, <span class="bn">0b01</span>, <span class="bn">0b10</span>, <span class="bn">0b11</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ga2d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>GA2D(scalar=0, e1=1, e2=2, e12=3)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For convenience, we unpack the basis blades into the global scope</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>scalar, e1, e2, e12 <span class="op">=</span> ga2d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="weighted-basis-blades" class="level3">
+<h3 class="anchored" data-anchor-id="weighted-basis-blades">Weighted Basis Blades</h3>
+<p>While basis blades are defined with a weight of 1.0, we could associate a custom weight value to each basis blade using a class. This makes it easier to implement multivectors in later notebooks, since multivectors are a sum of weighted basis blades.</p>
+<p>In our Python implementation, we group together the weight and basis data using a <code>dataclass</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="at">@dataclass</span>(frozen<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BasisBlade:</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""A BasisBlade is a fundamental element of a vector space"""</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- Class variables (defined without type hint); shared by all BasisBlades</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    bit_bases2d <span class="op">=</span> {<span class="bn">0b0</span>: <span class="st">'s'</span>, <span class="bn">0b1</span>: <span class="st">'e1'</span>, <span class="bn">0b10</span>: <span class="st">'e2'</span>, <span class="bn">0b11</span>: <span class="st">'e12'</span>}</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- Instance variables; made "immutable" by frozen=True</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># a.k.a scale or magnitude associated with blade</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    weight: <span class="bu">float</span> <span class="op">=</span> field(default<span class="op">=</span><span class="fl">0.</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># integer encoding </span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    basis: <span class="bu">int</span> <span class="op">=</span> field(default<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># basis_name depends on basis, so it can only be set post-initialization</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    basis_name: <span class="bu">str</span> <span class="op">=</span> field(init<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> __post_init__(<span class="va">self</span>):</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Update the "immutable" basis_name field</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">object</span>.<span class="fu">__setattr__</span>(<span class="va">self</span>, <span class="st">'basis_name'</span>, <span class="va">self</span>.bit_bases2d.get(<span class="va">self</span>.basis))</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__str__</span>(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Pretty print like math notation"""</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        prettyprint <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>weight <span class="cf">if</span> <span class="va">self</span><span class="sc">.</span>weight <span class="op">!=</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">""</span><span class="sc">}{</span><span class="va">self</span><span class="sc">.</span>basis_name<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> prettyprint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+<section id="basisblade" class="level3">
+<h3 class="anchored" data-anchor-id="basisblade">BasisBlade</h3>
+<blockquote class="blockquote">
+<pre><code> BasisBlade (weight:float=0.0, basis:int=0)</code></pre>
+</blockquote>
+<p>A BasisBlade is a fundamental element of a vector space</p>
+<p>The <code>dataclass</code> decorator automagically implements useful methods for our <a href="https://ImAKappa.github.io/geomalgebra/basisblades.html#basisblade"><code>BasisBlade</code></a> class like <code>__eq__</code>, <code>__repr__</code>, <code>__init__</code>, and more. See this <a href="https://youtu.be/vBH6GRJ1REM">mCoding video</a> for an overview, and the <a href="https://docs.python.org/3/library/dataclasses.html">dataclasses docs</a> for details.</p>
+<p>Also note that <code>bit_bases2d</code> is a <em>class variable</em> which means every instance of this class shares the same <code>bit_bases2d</code>. Contrast this with the <em>instance variables</em> <code>weight</code>, <code>basis</code>, and <code>basis_name</code>.</p>
+<p>Finally, note that we use <code>object.__set_attr__(...)</code> to modify the <code>BasisBlade.basis_name</code> attribute, despite the class being “frozen”. This is the only time a <a href="https://ImAKappa.github.io/geomalgebra/basisblades.html#basisblade"><code>BasisBlade</code></a> attribute needs to change post-initialization. See <a href="https://stackoverflow.com/questions/53756788/how-to-set-the-value-of-dataclass-field-in-post-init-when-frozen-true">this StackOverflow post</a> for more details.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example basis blade</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>BasisBlade(<span class="fl">4.0</span>, e1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>BasisBlade(weight=4.0, basis=1, basis_name='e1')</code></pre>
+</div>
+</div>
+<p>The <a href="https://ImAKappa.github.io/geomalgebra/basisblades.html#basisblade"><code>BasisBlade</code></a> class supports pretty-printing like math notation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Weight and basis</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(BasisBlade(<span class="fl">4.0</span>, e1))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># If weight=1. than only basis shown</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(BasisBlade(<span class="fl">1.0</span>, e12))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 's' (for scalar) helps distinguish BasisBlade class instance from Python floats</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(BasisBlade(<span class="op">-</span><span class="fl">12.</span>, scalar))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4.0e1
+e12
+-12.0s</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dataclass automagically implements __eq__ method for us</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>BasisBlade(<span class="op">-</span><span class="fl">3.4</span>, e2) <span class="op">==</span> BasisBlade(<span class="op">-</span><span class="fl">3.4</span>, e2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>True</code></pre>
+</div>
+</div>
+<p>Besides <code>__eq__</code>, no other operators are overloaded! This keeps the <a href="https://ImAKappa.github.io/geomalgebra/basisblades.html#basisblade"><code>BasisBlade</code></a> class small, and makes the implementation of operators simpler to understand.</p>
+<blockquote class="blockquote">
+<p>Of course, lack of operator-overloading makes our implementation more inconvenient to use. For a fully-featured, operator-overloaded Geometric Algebra library see <a href="https://github.com/pygae/clifford">Clifford</a>.</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We cannot multiply floats and BasisBlades using '*' without operator overloading!</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fl">3.4</span> <span class="op">*</span> BasisBlade(<span class="fl">1.</span>, e1)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">TypeError</span> <span class="im">as</span> err:</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(err)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>unsupported operand type(s) for *: 'float' and 'BasisBlade'</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="readings" class="level2">
+<h2 class="anchored" data-anchor-id="readings">Readings</h2>
+<p>Geometric Algebra Primer (Suter, 2003)</p>
+<ul>
+<li>Chapter 2.3 Basis Blades</li>
+</ul>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s Next?</h2>
+<p>Next, we implement multivectors.</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p>Definition from <a href="http://www.faculty.luther.edu/~macdonal/laga/">Linear and Geometric Algebra Chapter 2.5 Bases (MacDonald, 2011)</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
