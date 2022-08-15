@@ -7,7 +7,7 @@ __all__ = ['Multivector', 'add']
 from dataclasses import dataclass, field, InitVar
 from .basisblades import ga2d, BasisBlade
 
-# %% ../nbs/03_multivectors.ipynb 8
+# %% ../nbs/03_multivectors.ipynb 7
 @dataclass(frozen=True)
 class Multivector():
     """A Multivector is a linear combination of basis blades."""
@@ -30,7 +30,7 @@ class Multivector():
     def __str__(self) -> str:
         return self.prettyprint
 
-# %% ../nbs/03_multivectors.ipynb 15
+# %% ../nbs/03_multivectors.ipynb 13
 def add(*args: list[Multivector|BasisBlade]) -> Multivector:
     """Add Multivectors and BasisBlades"""
     basis_blades: list[BasisBlade] = list()

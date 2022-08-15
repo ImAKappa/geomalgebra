@@ -4,12 +4,10 @@
 __all__ = ['canonical_sign', 'basis_blade_gp', 'gp']
 
 # %% ../nbs/04_products.ipynb 2
-# Std library
-from array import array
 from .basisblades import ga2d, BasisBlade
 from .multivectors import Multivector, add
 
-# %% ../nbs/04_products.ipynb 15
+# %% ../nbs/04_products.ipynb 14
 def canonical_sign(basis_1: int, basis_2: int) -> int:
     """Count the number of basis blade swaps required to get 'a' and 'b' in canonical order
     Canonical order means increasing order is positive, i.e: e1^e2 is positive, e2^e1 is negative
@@ -23,13 +21,13 @@ def canonical_sign(basis_1: int, basis_2: int) -> int:
     num_swaps_is_odd = (num_swaps & 1) == 0
     return 1. if (num_swaps_is_odd) else -1.
 
-# %% ../nbs/04_products.ipynb 18
+# %% ../nbs/04_products.ipynb 17
 def basis_blade_gp(b1: BasisBlade, b2: BasisBlade):
     """Geometric Product for basis blades"""
     sign = canonical_sign(b1.basis, b2.basis)
     return BasisBlade(sign * b1.weight * b2.weight, b1.basis ^ b2.basis)
 
-# %% ../nbs/04_products.ipynb 24
+# %% ../nbs/04_products.ipynb 22
 def gp(m1: Multivector|BasisBlade, m2: Multivector|BasisBlade) -> Multivector:
     """Geometric product for Multivectors and Basis Blades"""
     basis_blades: list[BasisBlade] = list()

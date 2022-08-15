@@ -7,12 +7,12 @@ __all__ = ['GA2D', 'ga2d', 'BasisBlade']
 from dataclasses import dataclass, field
 from collections import namedtuple
 
-# %% ../nbs/02_basisblades.ipynb 13
+# %% ../nbs/02_basisblades.ipynb 12
 GA2D = namedtuple('GA2D', ['scalar', 'e1', 'e2', 'e12'])
 ga2d = GA2D(0b00, 0b01, 0b10, 0b11)
 ga2d
 
-# %% ../nbs/02_basisblades.ipynb 18
+# %% ../nbs/02_basisblades.ipynb 16
 @dataclass(frozen=True)
 class BasisBlade:
     """A BasisBlade is a fundamental element of a vector space"""
